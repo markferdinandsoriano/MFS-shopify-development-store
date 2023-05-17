@@ -1,0 +1,57 @@
+<div class="absolute max-w-md top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center">
+  <div>
+    <h1 class="text-5xl font-bold text-textColor2 mb-5">{{ section.settings.title }}</h1>
+  </div>
+
+  <div>
+    <p class="text-2xl">{{ section.settings.subtext_title }}</p>
+  </div>
+  <div class="my-4">
+    {% if section.settings.button_url == blank %}
+      {% assign homeUrl = shop.secure_url %}
+    {% else %}
+      {% assign homeUrl = section.settings.button_url %}
+    {% endif %}
+
+    <a href="{{ homeUrl }}" class="inline-flex gap-x-4 cursor-pointer">
+      <span>
+        {% render 'go-back-icon' %}
+      </span>
+      <p>
+        {{ section.settings.icon_label }}
+      </p>
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404-template",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "404",
+      "label": "404 Heading Title"
+    },
+    {
+      "type": "text",
+      "id": "subtext_title",
+      "default": "The page does not exist",
+      "label": "404 Subtext Title"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Icon URL"
+    },
+    {
+      "type": "text",
+      "id": "icon_label",
+      "default": "Back To homepage",
+      "label": "Icon label"
+    }
+  ]
+}
+{% endschema %}

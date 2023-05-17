@@ -1,0 +1,57 @@
+<div
+  x-show="mobileIsOpen"
+  class="flex absolute h-auto w-full px-6 mx-autobg-bgGlass shadow-ShadowGlass border-bdGlass rounded-radiusGlass border-solid md:hidden"
+>
+  <nav id="drop-down-menu" class="flex flex-col gap-y-4 my-8 w-full">
+    {% for link in menuOfLinkList %}
+      <div
+        class=" w-full flex flex-row justify-center items-center py-4 hover:bg-gray-100"
+        id="drop-down-links"
+        data-id="{{ dropdownlinks }}"
+      >
+        {% if link.links != blank %}
+          <div x-data="{  childlinksValue: false }" class="relative flex flex-col items-center">
+            <button
+              x-on:click="childlinksValue = !childlinksValue"
+              type="button"
+              class="text-base flex flex-row items-center gap-x-5 text-textColor2 hover:text-textHover font-semibold"
+            >
+              <h1 class="relative w-50">
+                {{ link.title }}
+              </h1>
+
+              <div class="relative w-50">
+                {% render 'arrow-down' %}
+              </div>
+            </button>
+            <div class="grid gap-y-7 py-3" x-show="childlinksValue">
+              {% for childlink in link.links %}
+                <a
+                  href="{{ childlink.url }}"
+                  class="flex items-center text-gray-5 bg-bgGlass shadow-ShadowGlass border-bdGlass rounded-radiusGlass border-solid"
+                >
+                  <span class="ml-3 text-base font-medium w-full py-2 px-20 text-gray-500">
+                    {{ childlink.title }}
+                  </span>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a
+            href="{{ link.url }}"
+            class="text-base flex flex-row items-center gap-x-5 text-textColor2 hover:text-textHover font-semibold"
+          >
+            <h1 class="relative w-50">
+              {{ link.title }}
+            </h1>
+
+            <div class="invisible w-50">
+              {% render 'arrow-down' %}
+            </div>
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </nav>
+</div>

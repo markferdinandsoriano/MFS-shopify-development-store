@@ -1,0 +1,41 @@
+<div class="px-4 py-8">
+  {% paginate collection.products by 6 %}
+    <h1 class="text-3xl text-center">{{ collection.title }}</h1>
+
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {% for product in collection.products %}
+          <div class="w-full py-6 px-3">
+            <div class="bg-bgGlass shadow-ShadowGlass border-bdGlass rounded-radiusGlass border-solid overflow-hidden">
+              {% if product.featured_image %}
+                <a href="{{ product.url }}">
+                  <div class="h-80 w-full flex justify-center items-center overflow-hidden ">
+                    <img
+                      class="w-[90%] h-[90%] object-center bg-bgGlass drop-shadow-2xl border-bdGlass rounded-radiusGlass border-solid"
+                      loading="lazy"
+                      src="{{ product.featured_image | img_url: 'large' }}"
+                      alt="{{ product.featured_image.alt }}"
+                    >
+                  </div>
+                </a>
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'w-[90%] h-[90%] object-center rounded-lg' }}
+              {% endif %}
+              <div class="text-center py-6 px-5 gap-y-5">
+                <div class="text-[1.5em] text-textColor2 font-semibold font-sans mb-6">
+                  {{ product.title | truncatewords: 2 }}
+                </div>
+                <div class="text-[1rem] text-gray-400 border-bdGlass">{{ product.vendor }}</div>
+                <div class="text-[1rem] text-gray-600">{{ product.description | truncatewords: 5 }}</div>
+                <div class="text-[1rem] text-black font-medium mt-6">{{ product.price | money }}</div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+      {% render 'pagination', pagination: paginate %}
+    </div>
+  {% endpaginate %}
+</div>

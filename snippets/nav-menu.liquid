@@ -1,0 +1,42 @@
+<nav class="hidden md:flex space-x-10">
+  {% for link in menuOfLinkList %}
+    {% assign linkTitle = link.title %}
+    {% if link.links != blank %}
+      {% assign linkTitle = link.title %}
+      <div x-data="{ open: false }" class="relative">
+        <button
+          x-on:click="open = ! open"
+          type="button"
+          class="inline-flex items-center justify-center text-base text-textColor2 gap-x-4 hover:text-textHover font-semibold"
+        >
+          {{ linkTitle }}
+          {% render 'arrow-down' %}
+        </button>
+
+        <div
+          x-show="open"
+          @click.away="open = false"
+          id="{{ link.title  }}"
+          class="absolute z-10 w-screen max-w-md sm:px-0 bg-bgGlass shadow-ShadowGlass border-bdGlass rounded-radiusGlass border-solid"
+        >
+          {% for childlink in link.links %}
+            <a href="{{ childlink.url }}" class="m-3 p-3 flex item-center rounded-lg hover:bg-gray-100">
+              <div class="ml-4">
+                <p class="text-textColor text-base font-medium">
+                  {{ childlink.title }}
+                </p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+
+    {% else %}
+      <div class="relative">
+        <a href="{{ link.url }}" class="text-base text-textColor2 hover:text-textHover font-semibold">
+          {{- link.title -}}
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</nav>

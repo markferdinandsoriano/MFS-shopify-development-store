@@ -1,0 +1,69 @@
+<script src="{{ 'header.js' | asset_url }} defer"></script>
+
+{% assign menuOfLinkList = linklists[section.settings.menu].links %}
+
+<header class="relative bg-white" x-data="{ mobileIsOpen: false }">
+  <div class="relative mx-auto px-4 w-full sm:px-6 bg-bgGlass shadow-ShadowGlass border-bdGlass rounded-radiusGlass border-solid">
+    <div class="sm:justify-between flex justify-center items-center py-6 md:justify-start md:space-x-10">
+      {% comment %} STORE NAME {% endcomment %}
+      <div class="flex justify-start lg:flex-1 truncate">
+        <h1 class="text-xl font-bold truncate text-textColor">{{ section.settings.store_title }}</h1>
+      </div>
+
+      {%- comment -%} navigational links   onclick="handleOpenChildLink()" {%- endcomment -%}
+      {% render 'nav-menu', menuOfLinkList: menuOfLinkList %}
+
+      {% comment %}  for hamburger menu and close menu {% endcomment %}
+      <div class="relative">
+        <button
+          x-on:click="mobileIsOpen = ! mobileIsOpen"
+          type="button"
+          class="flex md:hidden cursor-pointer"
+          id="hamburger-menu"
+        >
+          {% render 'hamburger-menu' %}
+        </button>
+      </div>
+
+      {% comment %}  cart, login and register {% endcomment %}
+
+      <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
+        <a
+          href="{{ routes.cart_url }}"
+          class="whitespace-nowrap text-base text-textColor2 hover:text-textHover font-semibold"
+        >
+          {% render 'shopping-cart' %}
+        </a>
+
+        {% if shop.customer_accounts_enabled %}
+          <a href="#" class="text-base  text-textColor2 hover:text-textHover font-semibold">Login</a>
+          <a href="#" class="text-base  text-textColor2 hover:text-textHover font-semibold">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% comment %}  Mobile View Dropdown menu {% endcomment %}
+  {% render 'mobile-menu', menuOfLinkList: menuOfLinkList %}
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "store_title",
+      "label": "Title",
+      "default": "Your Store Name",
+      "info": "This is title for store name"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Header Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}
