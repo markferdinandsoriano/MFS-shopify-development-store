@@ -1,25 +1,163 @@
-{% assign current_variant = product.selected_or_first_available_variant %}
-{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
-<img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
-{% for image in product.images %}
-  <a href="{{ image.src | img_url: 'large' }}">
-    <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
-  </a>
-{% endfor %}
-<h1>{{ product.title }}</h1>
-<form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
-  <select name="id" id="productSelect">
-    {% for variant in product.variants %}
-      {% if variant.available %}
-        <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-      {% else %}
-        <option disabled="disabled">{{ variant.title }} - sold out</option>
-      {% endif %}
+{% assign selected_product_variant = product.selected_or_first_available_variant %}
+
+<div class="max-w-7xl mx-auto my-10">
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    {% for media in product.media %}
+      <div class="h-[90%] w-[90%] overflow-hidden bg-bgGlass drop-shadow-2xl border-bdGlass rounded-radiusGlass border-solid">
+        {% render 'product-media', media: media %}
+      </div>
     {% endfor %}
-  </select>
-  {{ current_variant.price | money }}
-  <label for="Quantity">quantity</label>
-  <input type="number" id="Quantity" name="quantity" value="1" min="1">
-  <button type="submit" name="add" id="AddToCart">Add to cart</button>
-</form>
-<div>{{ product.description }}</div>
+
+    <!-- product information -->
+    <div class="flex flex-col">
+      {% form 'product', product, class: 'flex flex-col justify-between md:flex-row justify-between' %}
+        <input type="hidden" name="id" value="{{ selected_product_variant.id }}">
+        <!-- product title and vendor -->
+        <div class="flex flex-col w-[50%]">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'title' %}
+                <div class="mt-2">
+                  <h1 class="text-3xl text-textColor2">
+                    {{ product.title }}
+                  </h1>
+                </div>
+
+              {% when 'vendor' %}
+                <div class="my-1">
+                  <span class="text-xs text-gray-500">{{ product.vendor }}</span>
+                </div>
+
+                <!-- price and sale -->
+
+              {% when 'price' %}
+                <div class="my-2 gap-x-3">
+                  <span class="text-base text-gray-500 line-through">
+                    {{ selected_product_variant.compare_at_price | money -}}
+                  </span>
+                  <span class="text-lg text-gray-900">{{ selected_product_variant.price | money }} </span>
+
+                  {% if selected_product_variant.price < selected_product_variant.compare_at_price %}
+                    <span class="px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4">Sale</span>
+                  {% endif %}
+                </div>
+
+                <!-- quantities and add to cart -->
+              {% when 'quantity' %}
+                <div class="my-3 inline-flex items-center gap-x-5">
+                  <label for="Quantity-{{ section.id }}">Quantity:</label>
+                  <div class="my-2">
+                    <input
+                      type="number"
+                      min="1"
+                      name="quantity"
+                      id="Quantity"
+                      size="30"
+                      value="1"
+                      class="border border-textColor w-[50%] text-center text-[1em]"
+                    >
+                  </div>
+                </div>
+
+              {% when 'description' %}
+                <div class="my-4 w-full text-left">
+                  <p class="text-gray-700 text-medium">{{ product.description }}</p>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class="grid grid-rows-2 w-[50%]">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'variant_selector' %}
+                <div class="my-3 w-full">
+                  {% unless product.has_only_default_variant %}
+                    <div data-url="{{ product.url }}" data-section="{{ section.id }}">
+                      {% for option in product.options_with_values %}
+                        <label for="option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                        <div class="my-4">
+                          <select
+                            class="w-full border border-gray-300 text-textColor py-1 px-5"
+                            name="options[{{ option.name | escape }}]"
+                            id="option-{{ section.id }}-{{ forloop.index0 }}"
+                          >
+                            {% for value in option.values %}
+                              <option
+                                value="{{ value | escape }}"
+                                {% if option.selected_value == value %}
+                                  selected="selected"
+                                {% endif %}
+                              >
+                                {{ value }}
+                              </option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    <h1 class="text-center font-semibold text-xl text-gray-300">No Variants</h1>
+                  {% endunless %}
+                </div>
+
+              {% when 'checkout_buttons' %}
+                <div class="mt-12 w-full flex flex-col gap-y-4 items-end h-[50%]">
+                  <button
+                    class="px-10 w-[90%] py-3 border border-textColor2 text-center text-textColor2 bg-white font-semibold hover:text-white hover:bg-textColor2"
+                    {% if selected_product_variant.available == false %}
+                      disabled
+                    {% endif %}
+                  >
+                    {% if selected_product_variant.available == false %}
+                      Sold out
+                    {% else %}
+                      Add to cart
+                    {% endif %}
+                  </button>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "blocks": [
+    {
+      "type": "vendor",
+      "name": "Vendor or company",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "variant_selector",
+      "name": "Variant Selector",
+      "limit": 1
+    },
+    {
+      "type": "quantity",
+      "name": "Quantity",
+      "limit": 1
+    },
+    {
+      "type": "checkout_buttons",
+      "name": "Checkout Buttons",
+      "limit": 1
+    },
+    { "type": "description", "name": "Description", "limit": 1 }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+<div class="flex flex-col items-center my-8">
+  <h1 class="text-3xl font-medium text-textColor2 drop-shadow-2xl border-solid">
+    {{ section.settings.title }}
+  </h1>
+
+  <div class="max-w-6xl mx-auto my-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      {% for collection in collections %}
+        {% if collection.all_products_count > 0 %}
+          <div class="w-full py-6 px-3">
+            <div class="border bg-bgGlass drop-shadow-2xl border-bdGlass rounded-radiusGlass border-solid overflow-hidden">
+              <div class="p-4 bg-white text-center text-textColor2 font-medium">
+                <h1 class="text-xl">{{ collection.title }}</h1>
+              </div>
+              <a href="#">
+                <div class="h-80" overflow-hidden>
+                  {% if collection.featured_image != blank %}
+                    {% assign imageValue = collection.featured_image %}
+                  {% else %}
+                    {% assign imageValue = collection.products.first.image %}
+                  {% endif %}
+                  <img
+                    loading="lazy"
+                    class="w-full h-full object-cover transition duration-1000 ease-in-out hover:scale-105"
+                    src="{{ imageValue | img_url: 'large' }}"
+                  >
+                </div>
+              </a>
+              <div class="px-4 py-6 bg-white text-center">
+                <a
+                  href="{{ collection.url }}"
+                  class="border-textColor py-2 px-4 border font-sans font-bold text-textColor"
+                  >View All</a
+                >
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "List of Collections",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "List of Collections",
+      "label": "Title"
+    }
+  ]
+}
+{% endschema %}
