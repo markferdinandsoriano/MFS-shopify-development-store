@@ -27,11 +27,43 @@
 
       {% comment %}  cart, login and register {% endcomment %}
 
-      <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
+      <div class="hidden relative md:flex items-center justify-end md:flex-1 space-x-5 gay-x-[50%]">
+        <div
+          id="search-bar-field"
+          class="none absolute right-20 z-10 py-2 border-gray-100 border-2 shadow-inner block w-[80%] rounded-lg"
+        >
+          <form action="{{ routes.search_url }}" method="get" class="w-full h-full inline-flex">
+            <input
+              type="search"
+              name="q"
+              placeholder="Search..."
+              class="w-full h-full bg-white outline-none px-4 font-bold text-textColor"
+              autocomplete="off"
+            >
+            <button type="submit" class="mr-2">
+              {% render 'arrow-right' %}
+            </button>
+          </form>
+        </div>
+        <button
+          id="search-icon"
+          class="whitespace-nowrap text-base text-textColor2 hover:text-gray-500 font-semibold"
+        >
+          {% render 'search-icon' %}
+        </button>
+
         <a
           href="{{ routes.cart_url }}"
-          class="whitespace-nowrap text-base text-textColor2 hover:text-textHover font-semibold"
+          class="relative whitespace-nowrap text-base text-textColor2 hover:text-textHover font-semibold"
         >
+          {% if cart.item_count > 0 %}
+            <div class="absolute top-0 mt-4 flex justify-center items-center drop-shadow-2xl bg-orange-300 rounded-full w-[1.5em] h-[1.5em]">
+              <p class="text-gray-900 font-bold">
+                {{ cart.item_count }}
+              </p>
+            </div>
+          {% endif %}
+
           {% render 'shopping-cart' %}
         </a>
 

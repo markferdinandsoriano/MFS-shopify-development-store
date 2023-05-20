@@ -1,0 +1,50 @@
+<div class="max-w-8xl mx-auto">
+  {% paginate search.results by section.settings.number_of_products_per_page %}
+    {% if search.performed %}
+      {% if search.results.size > 0 %}
+        <div class="max-w-6xl mx-auto">
+          <h1 class="text-center py-6 text-2xl font-semibold text-textColor font-mono">Search Results</h1>
+
+          <div class="inline-flex justify-center py-1 gap-x-3 w-full">
+            <p class="text-textColor">{{ search.results.size }}</p>
+            <p>results for the keyword</p>
+            <p class="text-textColor2">{{ search.terms | escape }}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% for item in search.results %}
+              {% case item.object_type %}
+                {% when 'product' %}
+                  {% render 'product-card', product: item %}
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="text-center py-5 ">
+          <p>No results found. for {{ search.terms | escape }}. Try use different Keyword</p>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div>
+      {% render 'pagination', pagination: paginate %}
+    </div>
+  {% endpaginate %}
+</div>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "settings": [
+    {
+      "type": "range",
+      "id": "number_of_products_per_page",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "label": "Number of Products per Page",
+      "default": 10
+    }
+  ]
+}
+{% endschema %}

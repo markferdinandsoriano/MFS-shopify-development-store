@@ -1,36 +1,26 @@
-{{ 'slider.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'variantSelector.js' | asset_url }}" defer></script>
-<script src="{{ 'slider.js' | asset_url }}" defer></script>
 
 {% assign selected_product_variant = product.selected_or_first_available_variant %}
 
-<div class="w-full flex flex-col md:mx-auto my-10">
-  <div class="grid grid-cols-1 w-full sm:place-items-center md:grid-cols-2 gap-0">
-    <div class="slider-wrapper">
-      <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
-      <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
-      <ul class="slides-container" id="slides-container">
-        {% for media in product.media %}
-          <li
-            id="slide"
-            class="h-[90%] w-[90%] overflow-hidden bg-bgGlass drop-shadow-2xl border-bdGlass rounded-radiusGlass border-solid"
-          >
-            {% render 'product-media', media: media %}
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+<div class="max-w-7xl mx-auto my-10">
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    {% for media in product.media %}
+      <div class="h-[90%] w-[90%] overflow-hidden bg-bgGlass drop-shadow-2xl border-bdGlass rounded-radiusGlass border-solid">
+        {% render 'product-media', media: media %}
+      </div>
+    {% endfor %}
+
     <!-- product information -->
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col">
       {% form 'product',
         product,
         id: 'product-form',
         novalidate: 'novalidate',
-        class: 'flex flex-col w-full justify-between items-start md:flex-row justify-between'
+        class: 'flex flex-col justify-between md:flex-row justify-between'
       %}
         <input type="hidden" name="id" value="{{ selected_product_variant.id }}">
         <!-- product title and vendor -->
-        <div class="flex flex-col px-4 w-[50%]">
+        <div class="flex flex-col w-[50%]">
           {% for block in section.blocks %}
             {% case block.type %}
               {% when 'title' %}
@@ -82,55 +72,49 @@
             {% endcase %}
           {% endfor %}
         </div>
-
-        <div class="grid px-4 md:grid-rows-2 w-[50%]">
+        <div class="md:grid grid-rows-2 w-[50%]">
           {% for block in section.blocks %}
             {% case block.type %}
               {% when 'variant_selector' %}
-                <div class="my-3 w-[90%]">
+                <div class="my-3 w-full">
                   {% unless product.has_only_default_variant %}
                     <variant-custom-element data-url="{{ product.url }}" data-section="{{ section.id }}">
                       {% for option in product.options_with_values %}
-                        <div>
-                          <label for="option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
-                          <div class="my-4">
-                            <select
-                              name="options[{{ option.name | escape }}]"
-                              id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                              class="w-full border border-gray-300 text-textColor py-1 px-5"
-                            >
-                              {% for value in option.values %}
-                                <option
-                                  value="{{ value | escape }}"
-                                  {% if option.selected_value == value %}
-                                    selected="selected"
-                                  {% endif %}
-                                >
-                                  {{ value }}
-                                </option>
-                              {% endfor %}
-                            </select>
-                          </div>
+                        <label for="option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                        <div class="my-4">
+                          <select
+                            name="options[{{ option.name | escape }}]"
+                            id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                            class="w-full border border-gray-300 text-textColor py-1 px-5"
+                          >
+                            {% for value in option.values %}
+                              <option
+                                value="{{ value | escape }}"
+                                {% if option.selected_value == value %}
+                                  selected="selected"
+                                {% endif %}
+                              >
+                                {{ value }}
+                              </option>
+                            {% endfor %}
+                          </select>
                         </div>
-
                         <script type="application/json">
                           {{ product.variants | json }}
                         </script>
                       {% endfor %}
                     </variant-custom-element>
                   {% else %}
-                    <div class="my-4">
-                      <h1 class="text-center font-semibold text-xl text-gray-300">No Variants</h1>
-                    </div>
+                    <h1 class="text-center font-semibold text-xl text-gray-300">No Variants</h1>
                   {% endunless %}
                 </div>
 
               {% when 'checkout_buttons' %}
-                <div class="mt-12 w-[80%] flex flex-col gap-y-4 items-start h-[50%]">
+                <div class="mt-12 w-full flex flex-col gap-y-4 items-end h-[50%]">
                   <button
                     type="submit"
                     name="add"
-                    class="text-sm px-10 w-[full] py-3 border border-textColor2 text-center text-textColor2 bg-white font-semibold hover:text-white hover:bg-textColor2"
+                    class="px-10 w-[90%] py-3 border border-textColor2 text-center text-textColor2 bg-white font-semibold hover:text-white hover:bg-textColor2"
                     {% if selected_product_variant.available == false %}
                       disabled
                     {% endif %}
@@ -149,47 +133,3 @@
     </div>
   </div>
 </div>
-
-{% schema %}
-{
-  "name": "Product",
-  "blocks": [
-    {
-      "type": "vendor",
-      "name": "Vendor or company",
-      "limit": 1
-    },
-    {
-      "type": "title",
-      "name": "Title",
-      "limit": 1
-    },
-    {
-      "type": "price",
-      "name": "Price",
-      "limit": 1
-    },
-    {
-      "type": "variant_selector",
-      "name": "Variant Selector",
-      "limit": 1
-    },
-    {
-      "type": "quantity",
-      "name": "Quantity",
-      "limit": 1
-    },
-    {
-      "type": "checkout_buttons",
-      "name": "Checkout Buttons",
-      "limit": 1
-    },
-    { "type": "description", "name": "Description", "limit": 1 }
-  ],
-  "presets": [
-    {
-      "name": "Featured Product"
-    }
-  ]
-}
-{% endschema %}

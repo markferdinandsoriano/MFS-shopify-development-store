@@ -1,59 +1,20 @@
-// const childObj = {
-//   isOpen: false,
-//   toggleOpen: () => {
-//     childObj.isOpen = !childObj.isOpen;
-//   },
-// };
+const searchObj = {
+  isOpen: false,
+  toggleOpen: () => {
+    searchObj.isOpen = !searchObj.isOpen;
+  },
+};
 
-// const handleOpenChildLink = (id) => {
-//   const dataId = id.getAttribute('data-id');
+document.addEventListener('DOMContentLoaded', function (event) {
+  // Code to be executed when the DOM content is loaded
 
-//   const childlink = document.getElementById(dataId);
+  const searchElement = document.getElementById('search-icon');
+  const searhBarField = document.getElementById('search-bar-field');
 
-//   childObj.toggleOpen();
-//   childlink.style.display = childObj?.isOpen ? 'block' : 'none';
-// };
+  searhBarField.style.display = 'none';
 
-// const clickAway = (e) => {
-//   e.addEventListener('click', function (event) {
-//     console.log('event target', event.target);
-//   });
-// };
-
-// window.onload = function () {
-//   const dropDownMenu = document.getElementById('drop-down-menu');
-//   const burgerIcon = document.getElementById('hamburger-menu');
-//   const closeIcon = document.getElementById('close-menu');
-
-//   closeIcon.style.display = 'none';
-//   dropDownMenu.style.display = 'none';
-
-//   burgerIcon.addEventListener('click', () => handleCloseOpen('burger'));
-
-//   closeIcon.addEventListener('click', () => handleCloseOpen('close'));
-// };
-
-// const handleCloseOpen = (name) => {
-//   const burgerIconElement = document.getElementById('hamburger-menu');
-//   const dropDownMenu = document.getElementById('drop-down-menu');
-//   const closeIconElement = document.getElementById('close-menu');
-
-//   let closeIcon = false;
-//   let burgerIcon = false;
-
-//   name === 'burger' ? ((burgerIcon = true), (closeIcon = false)) : ((burgerIcon = false), (closeIcon = true));
-
-//   if (burgerIcon) {
-//     dropDownMenu.style.display = 'flex';
-//     burgerIconElement.style.display = 'none';
-//     closeIconElement.style.display = 'flex';
-//   } else if (closeIcon) {
-//     dropDownMenu.style.display = 'none';
-//     burgerIconElement.style.display = 'flex';
-//     closeIconElement.style.display = 'none';
-//   } else {
-//     dropDownMenu.style.display = 'none';
-//     burgerIconElement.style.display = 'none';
-//     closeIconElement.style.display = 'none';
-//   }
-// };
+  searchElement.addEventListener('click', () => {
+    searchObj.toggleOpen();
+    searhBarField.style.display = searchObj.isOpen ? 'block' : 'none';
+  });
+});

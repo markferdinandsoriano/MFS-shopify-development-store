@@ -2,7 +2,10 @@
   "sections": {
    "featured-collection-page":{
       "type":"featured-collection-page"
-   } 
+   },
+   "image-banner":{
+    "type": "image-banner"
+   }
   },
-  "order": ["featured-collection-page"]
+  "order": ["image-banner","featured-collection-page"]
 }

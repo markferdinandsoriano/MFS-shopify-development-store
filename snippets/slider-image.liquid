@@ -1,0 +1,30 @@
+{{ 'slider.css' | asset_url | stylesheet_tag }}
+
+<section class="slider-wrapper">
+  <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
+
+  <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
+
+  <ul class="slides-container" id="slides-container">
+    {% for media in product.media %}
+      <li class="slide h-[90%] w-[90%] overflow-hidden bg-bgGlass drop-shadow-2xl border-bdGlass rounded-radiusGlass border-solid">
+        {% render 'product-media', media: media %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<script>
+  const slidesContainer = document.getElementById('slides-container');
+  const slide = document.querySelector('.slide');
+  const prevButton = document.getElementById('slide-arrow-prev');
+  const nextButton = document.getElementById('slide-arrow-next');
+  nextButton.addEventListener('click', () => {
+    const slideWidth = slide.clientWidth;
+    slidesContainer.scrollLeft += slideWidth;
+  });
+  prevButton.addEventListener('click', () => {
+    const slideWidth = slide.clientWidth;
+    slidesContainer.scrollLeft -= slideWidth;
+  });
+</script>

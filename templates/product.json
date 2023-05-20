@@ -26,8 +26,8 @@
                 }
             },
             "block_order": [
+              "title",
                 "vendor",
-                "title",
                 "price",
                 "variant_selector",
                 "quantity",
