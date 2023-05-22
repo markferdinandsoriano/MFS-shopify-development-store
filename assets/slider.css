@@ -8,6 +8,7 @@
     align-items: center;
     padding-top: 1em;
     padding-bottom: 1em;
+    z-index: 0;
   }
   .slides-container {
     height:100%;

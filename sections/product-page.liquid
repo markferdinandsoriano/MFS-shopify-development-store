@@ -1,6 +1,7 @@
 {{ 'slider.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'variantSelector.js' | asset_url }}" defer></script>
-<script src="{{ 'slider.js' | asset_url }}" defer></script>
+<script defer src="{{ 'variantSelector.js' | asset_url }}" defer></script>
+<script defer src="{{ 'slider.js' | asset_url }}" defer></script>
+<script defer src="{{ 'quantity.js' | asset_url }}"></script>
 
 {% assign selected_product_variant = product.selected_or_first_available_variant %}
 
@@ -63,15 +64,28 @@
               {% when 'quantity' %}
                 <div class="my-3 inline-flex items-center gap-x-5">
                   <label for="Quantity-{{ section.id }}">Quantity:</label>
-                  <div class="my-2">
-                    <input
-                      type="number"
-                      name="quantity"
-                      id="Quantity-{{ section.id }}"
-                      min="1"
-                      value="1"
-                      class="border border-textColor w-[50%] text-center text-[1em]"
-                    >
+                  <div class="my-2 select-none">
+                    <div class="inline-flex gap-x-4 items-center select-none">
+                      <div id="minus-button" class="cursor-pointer">
+                        {% render 'minus' %}
+                      </div>
+
+                      <p id="quantity-value" class="select-none">1</p>
+
+                      <div id="plus-button" class="cursor-pointer">
+                        {% render 'plus' %}
+                      </div>
+
+                      <input
+                        id="Quantity-{{ section.id }}"
+                        data-key="Quantity-{{ section.id }}"
+                        type="number"
+                        name="quantity"
+                        min="1"
+                        value="1"
+                        class="hidden border border-textColor w-[50%] text-center text-[1em]"
+                      >
+                    </div>
                   </div>
                 </div>
 

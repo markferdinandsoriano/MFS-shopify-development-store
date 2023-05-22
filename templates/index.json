@@ -5,7 +5,10 @@
    },
    "image-banner":{
     "type": "image-banner"
+   },
+   "featured-product":{
+    "type": "featured-product"
    }
   },
-  "order": ["image-banner","featured-collection-page"]
+  "order": ["image-banner","featured-collection-page","featured-product"]
 }

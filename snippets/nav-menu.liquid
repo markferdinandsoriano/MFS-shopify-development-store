@@ -16,7 +16,7 @@
         <div
           x-show="open"
           @click.away="open = false"
-          id="{{ link.title  }}"
+          id="{{ link.title }}"
           class="absolute z-10 w-screen max-w-md sm:px-0 bg-bgGlass shadow-ShadowGlass border-bdGlass rounded-radiusGlass border-solid"
         >
           {% for childlink in link.links %}
