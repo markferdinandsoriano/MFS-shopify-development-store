@@ -93,6 +93,7 @@ class CartNotificationModal extends HTMLElement {
     this.quantityInput = slot1.assignedElements()[0].querySelector('[data-key]');
     this.productPriceValue = slot1.assignedElements()[0].querySelector('#product-price');
     this.variantsTitle = slot1.assignedElements()[0].querySelector('#variants-title');
+    this.variantInputId = slot1.assignedElements()[0].querySelector('#variant-id');
     this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
   }
 
@@ -121,6 +122,7 @@ class CartNotificationModal extends HTMLElement {
     const getVariantValue = this.variantData.find((items) => items.id.toString() === variantID);
     const variantValue = getVariantValue?.title;
     this.variantsTitle.textContent = `Variants:  ${variantValue}`;
+    this.variantInputId.value = variantID;
   }
 }
 

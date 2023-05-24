@@ -22,9 +22,10 @@
         product,
         id: 'product-form',
         novalidate: 'novalidate',
-        class: 'flex flex-col w-full h-full justify-between'
+        class: 'flex flex-col w-full h-full justify-between px-5'
       %}
         <input type="hidden" name="id" id="variant-id" value="{{ selected_product_variant.id }}">
+
         {% for option in product.options_with_values %}
           <script type="application/json">
             {{ product.variants | json }}
@@ -68,19 +69,19 @@
         </div>
         <div
           id="actions-button"
-          class="w-full flex flex-col mt-10 pb-4 gap-x-20 px-5 items-center justify-end md:flex-row"
+          class="w-full flex flex-col mt-10 pb-4 gap-x-20 px-5 items-center justify-end xl:flex-row"
         >
           <button
             type="submit"
             name="add"
-            class="border-2 border-textColor2 px-3 py-2 text-textColor2 hover:text-gray-500 hover:border-gray-500 hover:font-bold"
+            class="border-2 border-textColor2 px-3 py-2 w-full text-textColor2 text-sm hover:text-gray-500 hover:border-gray-500 hover:font-bold"
           >
             View My Cart
           </button>
           <button
             type="submit"
             name="checkout"
-            class="border-2 px-3 py-2 bg-textColor2 text-white font-semibold hover:font-bold"
+            class="border-2 px-3 py-2 bg-textColor2 text-sm  w-full text-white font-semibold hover:font-bold"
           >
             Checkout
           </button>

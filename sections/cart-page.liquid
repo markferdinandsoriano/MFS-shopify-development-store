@@ -1,3 +1,5 @@
+<script src="{{ 'update_cart.js' | asset_url }}" defer></script>
+
 {% if cart.item_count > 0 %}
   <div class="p-4">
     <div class="max-w-6xl flex- flex-col my-10 mx-auto border-b-2">
@@ -20,16 +22,16 @@
         <div class="overflow-y-auto px-4 h-[16em]">
           {% for item in cart.items %}
             <div class="flex flex-row w-full h-auto py-4 my-4 bg-bgGlass shadow-ShadowGlass border-bdGlass rounded-radiusGlass border-solid">
-              <div id="product-image" class="w-200 md:w-[20%] h-100 mx-4">
+              <div id="product-image" class="w-300 h-300 md:w-200 h-200 mx-4">
                 <a href="{{ item.url }}" class="w-full h-full">
                   {% if item.image %}
                     <img
                       loading="lazy"
-                      src="{{ item | img_url: 'medium' }}"
+                      src="{{ item | img_url: 'large' }}"
                       alt="{{ item.title | escape }}"
-                      width="100"
-                      height="100"
-                      class="w-100 h-100 object-cover border"
+                      width="300"
+                      height="300"
+                      class="w-[100%] h-[100%] object-cover border"
                     >
                   {% else %}
                     {{ 'product-1' | placeholder_svg_tag: 'w-100 h-100 object-cover border' }}
@@ -37,28 +39,33 @@
                 </a>
               </div>
 
+              <script type="application/json">
+                {{ item | json}}
+              </script>
+
               <div id="product-name-price-quantity" class="sm:gap-y-4 flex flex-col w-[65%] h-auto ml-8">
                 <h1 class="sm:text-xl flex flex-col text-2xl my-2 text-textColor">
                   <a href="{{ item.url }}" class="my-1">{{ item.product.title | truncatewords: 5 }}</a>
                   <span class="text-sm text-textColor2 my-1">{{ item.product.description | truncatewords: 25 }}</span>
                   <span class="text-sm text-textColor2 my-1">{{ item.variant.title }}</span>
                 </h1>
-                <div class="sm:flex-col inline-flex  gap-x-12">
+                <div class="sm:flex-col inline-flex  gap-x-12" data-key="price-quantity-{{ item.id }}">
                   <div class="inline-flex items-center gap-x-4">
                     <h6 class="text-[0.8rem] md:text-[1em]">Price:</h6>
-                    <h5 class="text-[0.8rem] md:text-[1em]">
-                      {{ item.line_price | money }}
+                    <h5 data-id="price" class="text-[0.8rem] md:text-[1em]">
+                      {{ item.price | money }}
                     </h5>
                   </div>
 
                   <div class="inline-flex items-center gap-x-4">
-                    <h3 class="text-[0.8rem] md:text-[1em]">Qty:</h3>
+                    <h3 data-id="price" class="text-[0.8rem] md:text-[1em]">Qty:</h3>
                     <input
                       type="number"
                       name="updates[]"
                       id="updates_{{ forloop.index }}"
                       value="{{ item.quantity }}"
                       min="0"
+                      data-id="update_input"
                       class="text-[0.8rem] w-15 md:text-[1em] md:w-20 border p-2"
                     >
                   </div>
@@ -90,17 +97,19 @@
             {% for block in section.blocks %}
               {% case block.type %}
                 {% when 'subtotal' %}
-                  <h3 class="text-xl">Subtotal: {{ cart.total_price | money }}</h3>
-                {% when 'update_button' %}
-                  <div class="my-2">
-                    <button
-                      type="submit"
-                      name="update"
-                      class="w-full p-3 border border-gray-600 text-gray-600 font-medium hover:bg-gray-600 hover:text-white"
-                    >
-                      Update
-                    </button>
-                  </div>
+                  <h3 class="text-xl" id="cart-total-price">Subtotal: {{ cart.total_price | money }}</h3>
+                  {% comment %}
+                    {% when 'update_button' %}
+                    <div class="my-2">
+                      <button
+                        type="submit"
+                        name="update"
+                        class="w-full p-3 border border-gray-600 text-gray-600 font-medium hover:bg-gray-600 hover:text-white"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  {% endcomment %}
                 {% when 'checkout_button' %}
                   <div class="my-2">
                     <button
