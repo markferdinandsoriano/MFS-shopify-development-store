@@ -1,0 +1,91 @@
+{% assign selected_product_variant = product.selected_or_first_available_variant %}
+
+<cart-notification>
+  <div slot="product-body" class="grid grid-cols-1 md:grid-cols-2">
+    <div class="modal-slider-wrapper">
+      <button class="modal-slide-arrow" id="modal-slide-arrow-prev">&#8249;</button>
+      <button class="modal-slide-arrow" id="modal-slide-arrow-next">&#8250;</button>
+      <ul class="modal-slides-container" id="modal-slides-container">
+        {% for media in product.media %}
+          <li
+            id="modal-slide"
+            class="h-[90%] w-[90%] overflow-hidden bg-bgGlass drop-shadow-2xl border-bdGlass rounded-radiusGlass border-solid"
+          >
+            {% render 'product-media', media: media %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="flex flex-col justify-between w-full h-full">
+      {% form 'product',
+        product,
+        id: 'product-form',
+        novalidate: 'novalidate',
+        class: 'flex flex-col w-full h-full justify-between'
+      %}
+        <input type="hidden" name="id" id="variant-id" value="{{ selected_product_variant.id }}">
+        {% for option in product.options_with_values %}
+          <script type="application/json">
+            {{ product.variants | json }}
+          </script>
+        {% endfor %}
+        <div class="flex flex-col w-full justify-between items-start md:flex-col justify-between">
+          <div class="mt-2">
+            <h1 class="text-3xl text-textColor2">
+              {{ product.title }}
+            </h1>
+          </div>
+
+          <div class="my-1">
+            <span class="text-xs text-gray-500">{{ product.vendor }}</span>
+          </div>
+
+          <div class="flex flex-col my-2 gap-x-10 w-full md:flex-row" id="price-{{ section.id }}">
+            <span id="product-price" class="text-lg text-gray-900"
+              >Price: {{ selected_product_variant.price | money }}
+            </span>
+            <span for="Quantity-{{ section.id }}" id="quantity-value">Qty: 1</span>
+
+            <input
+              id="Quantity-{{ section.id }}"
+              data-key="Quantity-{{ section.id }}"
+              type="number"
+              name="quantity"
+              min="1"
+              value="1"
+              class="hidden border border-textColor w-[50%] text-center text-[1em]"
+            >
+          </div>
+
+          <div class="flex flex-col my-2 gap-x-10 w-full md:flex-row" id="price-{{ section.id }}">
+            <span id="variants-title" class="text-medium text-gray-900">Variants: </span>
+          </div>
+
+          <div class="my-4 w-full text-left">
+            <p class="text-gray-700 text-sm">{{ product.description }}</p>
+          </div>
+        </div>
+        <div
+          id="actions-button"
+          class="w-full flex flex-col mt-10 pb-4 gap-x-20 px-5 items-center justify-end md:flex-row"
+        >
+          <button
+            type="submit"
+            name="add"
+            class="border-2 border-textColor2 px-3 py-2 text-textColor2 hover:text-gray-500 hover:border-gray-500 hover:font-bold"
+          >
+            View My Cart
+          </button>
+          <button
+            type="submit"
+            name="checkout"
+            class="border-2 px-3 py-2 bg-textColor2 text-white font-semibold hover:font-bold"
+          >
+            Checkout
+          </button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</cart-notification>

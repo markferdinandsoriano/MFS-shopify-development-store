@@ -10,10 +10,12 @@ if (listImages < 2) {
 }
 
 nextButton.addEventListener('click', () => {
+  console.log('clicccking next');
   const slideWidth = slide.clientWidth;
   slidesContainer.scrollLeft += slideWidth;
 });
 prevButton.addEventListener('click', () => {
+  console.log('clicccking prev');
   const slideWidth = slide.clientWidth;
   slidesContainer.scrollLeft -= slideWidth;
 });

@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const getInputValue = document.querySelector('[data-key]');
   const quantityValue = document.querySelector('#quantity-value');
 
-  console.log('getInputValue', getInputValue);
-
   minusButton.addEventListener('click', function () {
     quantityObj.setMinusValue();
     quantityValue.textContent = quantityObj.quantity;
