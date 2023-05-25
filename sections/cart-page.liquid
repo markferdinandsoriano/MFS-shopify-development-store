@@ -38,10 +38,11 @@
                   {% endif %}
                 </a>
               </div>
-
-              <script type="application/json">
-                {{ item | json}}
-              </script>
+              {% comment %}
+                <script type="application/json">
+                  {{ item | json}}
+                </script>
+              {% endcomment %}
 
               <div id="product-name-price-quantity" class="sm:gap-y-4 flex flex-col w-[65%] h-auto ml-8">
                 <h1 class="sm:text-xl flex flex-col text-2xl my-2 text-textColor">
@@ -59,15 +60,31 @@
 
                   <div class="inline-flex items-center gap-x-4">
                     <h3 data-id="price" class="text-[0.8rem] md:text-[1em]">Qty:</h3>
-                    <input
-                      type="number"
-                      name="updates[]"
-                      id="updates_{{ forloop.index }}"
-                      value="{{ item.quantity }}"
-                      min="0"
-                      data-id="update_input"
-                      class="text-[0.8rem] w-15 md:text-[1em] md:w-20 border p-2"
-                    >
+                    <div class="my-2 select-none">
+                      <div data-id="custom-quantity" class="inline-flex gap-x-4 items-center select-none">
+                        <div id="minus-button" class="cursor-pointer">
+                          {% render 'minus' %}
+                        </div>
+
+                        <p id="quantity-value" product-id="{{ item.product_id }}" class="select-none">
+                          {{ item.quantity }}
+                        </p>
+
+                        <div id="plus-button" class="cursor-pointer">
+                          {% render 'plus' %}
+                        </div>
+
+                        <input
+                          type="number"
+                          name="updates[]"
+                          id="updates_{{ forloop.index }}"
+                          value="{{ item.quantity }}"
+                          min="0"
+                          data-id="update_input"
+                          class="hidden text-[0.8rem] w-15 md:text-[1em] md:w-20 border p-2"
+                        >
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -98,20 +115,9 @@
               {% case block.type %}
                 {% when 'subtotal' %}
                   <h3 class="text-xl" id="cart-total-price">Subtotal: {{ cart.total_price | money }}</h3>
-                  {% comment %}
-                    {% when 'update_button' %}
-                    <div class="my-2">
-                      <button
-                        type="submit"
-                        name="update"
-                        class="w-full p-3 border border-gray-600 text-gray-600 font-medium hover:bg-gray-600 hover:text-white"
-                      >
-                        Update
-                      </button>
-                    </div>
-                  {% endcomment %}
+
                 {% when 'checkout_button' %}
-                  <div class="my-2">
+                  <div class="my-6">
                     <button
                       type="submit"
                       name="checkout"

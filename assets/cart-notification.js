@@ -130,6 +130,37 @@ customElements.define('cart-notification', CartNotificationModal);
 
 const addToCartBtn = document.querySelector('#addToCart');
 const cartModal = document.querySelector('cart-notification');
+const submitForm = document.querySelector('#product-form');
+
+submitForm.addEventListener('submit', (event) => {
+  const variantId = document.querySelector('#variant-id')?.value;
+  const quantityValue = document.querySelector('#quantity-value')?.textContent;
+
+  event.preventDefault();
+
+  let formData = {
+    items: [
+      {
+        id: variantId,
+        quantity: quantityValue,
+      },
+    ],
+  };
+
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+});
 
 addToCartBtn.addEventListener('click', () => {
   cartModal.setAttribute('opened', '');

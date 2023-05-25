@@ -37,13 +37,15 @@
     </div>
     <!-- product information -->
     <div class="flex flex-col w-full">
-      {% form 'product',
-        product,
-        id: 'product-form',
-        novalidate: 'novalidate',
-        class: 'flex flex-col w-full justify-between items-start md:flex-row justify-between'
-      %}
+      <form
+        action="/cart/add"
+        method="POST"
+        onsubmit="true"
+        id="product-form"
+        novalidate
+      >
         <input type="hidden" name="id" id="variant-id" value="{{ selected_product_variant.id }}">
+
         <!-- product title and vendor -->
         <div class="flex flex-col px-4 w-[50%]">
           {% for block in section.blocks %}
@@ -157,7 +159,9 @@
 
               {% when 'checkout_buttons' %}
                 <div class="mt-12 w-[80%] flex flex-col gap-y-4 items-start h-[50%]">
-                  <div
+                  <button
+                    type="submit"
+                    name="add"
                     id="addToCart"
                     class="text-sm px-10 w-[full] py-3 border border-textColor2 text-center text-textColor2 bg-white font-semibold hover:text-white hover:bg-textColor2 hover:cursor-pointer"
                     {% if selected_product_variant.available == false %}
@@ -169,12 +173,12 @@
                     {% else %}
                       Add to cart
                     {% endif %}
-                  </div>
+                  </button>
                 </div>
             {% endcase %}
           {% endfor %}
         </div>
-      {% endform %}
+      </form>
     </div>
   </div>
   {% render 'cart-notification' %}
