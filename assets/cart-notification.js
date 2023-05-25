@@ -155,6 +155,7 @@ submitForm.addEventListener('submit', (event) => {
     body: JSON.stringify(formData),
   })
     .then((response) => {
+      console.log('response', response);
       return response.json();
     })
     .catch((error) => {

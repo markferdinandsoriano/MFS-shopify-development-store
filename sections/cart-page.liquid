@@ -38,6 +38,7 @@
                   {% endif %}
                 </a>
               </div>
+
               {% comment %}
                 <script type="application/json">
                   {{ item | json}}
@@ -66,7 +67,12 @@
                           {% render 'minus' %}
                         </div>
 
-                        <p id="quantity-value" product-id="{{ item.product_id }}" class="select-none">
+                        <p
+                          id="quantity-value"
+                          variant-id="{{ item.variant_id }}"
+                          product-id="{{ item.product_id }}"
+                          class="select-none"
+                        >
                           {{ item.quantity }}
                         </p>
 
@@ -119,6 +125,7 @@
                 {% when 'checkout_button' %}
                   <div class="my-6">
                     <button
+                      id="checkout-button"
                       type="submit"
                       name="checkout"
                       class="w-full p-3 border border-textColor2 bg-textColor2 text-white font-semibold"

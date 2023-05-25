@@ -3,6 +3,7 @@ const quantityObj = {
   products: [],
   subtotal: 0,
   priceTotal: [],
+  updateForm: {},
   setMinusValue: (index) => {
     quantityObj.products[index] -= quantityObj.products[index] && 1;
   },
@@ -23,6 +24,12 @@ const quantityObj = {
       return acc + val;
     }, 0);
   },
+  setUpdateForm: (key, value) => {
+    quantityObj.updateForm = {
+      ...quantityObj.updateForm,
+      [key]: value,
+    };
+  },
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -31,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const cartTotalPrice = document.querySelector('#cart-total-price');
   const quantityValue = document.querySelectorAll('#quantity-value');
   const customQuantityInput = document.querySelectorAll('[data-id="custom-quantity"]');
+  const variantId = document.querySelectorAll('[variant-id]');
 
   [...customQuantityInput].forEach((items, index) => {
     const minusButton = items.querySelector('#minus-button');
@@ -52,8 +60,32 @@ document.addEventListener('DOMContentLoaded', function () {
         quantityObj.setPlusValue(indexValue);
       }
 
+      const variantValue = variantId[indexValue].getAttribute('variant-id');
+
       quantityValue[indexValue].textContent = quantityObj.products[indexValue];
       update_input[indexValue].value = update_input[indexValue].setAttribute('value', quantityObj.products[indexValue]);
+
+      quantityObj.setUpdateForm(variantValue, quantityObj.products[indexValue]);
+
+      let formData = {
+        updates: {
+          ...quantityObj.updateForm,
+        },
+      };
+
+      fetch(window.Shopify.routes.root + 'cart/update.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
 
       const value =
         parseFloat(
