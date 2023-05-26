@@ -135,6 +135,7 @@ const submitForm = document.querySelector('#product-form');
 submitForm.addEventListener('submit', (event) => {
   const variantId = document.querySelector('#variant-id')?.value;
   const quantityValue = document.querySelector('#quantity-value')?.textContent;
+  const cartCountElement = document.querySelector('#cart-counts');
 
   event.preventDefault();
 
@@ -155,8 +156,10 @@ submitForm.addEventListener('submit', (event) => {
     body: JSON.stringify(formData),
   })
     .then((response) => {
-      console.log('response', response);
       return response.json();
+    })
+    .then((data) => {
+      cartCountElement.textContent = parseInt(cartCountElement.textContent) + parseInt(data.items?.length);
     })
     .catch((error) => {
       console.error('Error:', error);

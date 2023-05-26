@@ -56,13 +56,9 @@
           href="{{ routes.cart_url }}"
           class="relative whitespace-nowrap text-base text-textColor2 hover:text-textHover font-semibold"
         >
-          {% if cart.item_count > 0 %}
-            <div class="absolute top-0 mt-4 flex justify-center items-center drop-shadow-2xl bg-orange-300 rounded-full w-[1.5em] h-[1.5em]">
-              <p class="text-gray-900 font-bold">
-                {{ cart.item_count }}
-              </p>
-            </div>
-          {% endif %}
+          <div class="absolute top-0 mt-4 flex justify-center items-center drop-shadow-2xl bg-orange-300 rounded-full w-[1.5em] h-[1.5em]">
+            <p id="cart-counts" class="text-gray-900 font-bold"></p>
+          </div>
 
           {% render 'shopping-cart' %}
         </a>
