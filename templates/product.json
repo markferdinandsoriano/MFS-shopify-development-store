@@ -1,40 +1,77 @@
 {
-    "sections":{
-        "template":{
-            "type": "product-page",
-            "blocks": {
-                "vendor":{
-                  "type": "vendor"
-                },
-                "title":{
-                  "type": "title"
-                },
-               "price": {
-                  "type": "price"
-                },
-               "variant_selector": {
-                  "type": "variant_selector"
-                },
-               "quantity": {
-                  "type": "quantity"
-                },
-                "checkout_buttons":{
-                  "type": "checkout_buttons"
-                },
-                "description":{
-                    "type":"description"
-                }
-            },
-            "block_order": [
-              "title",
-                "vendor",
-                "price",
-                "variant_selector",
-                "quantity",
-                "checkout_buttons",
-                "description"
-            ]
-        }    
+  "sections": {
+    "template": {
+      "type": "product-page",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {
+          }
+        },
+        "checkout_buttons": {
+          "type": "checkout_buttons",
+          "settings": {
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "vendor",
+        "price",
+        "variant_selector",
+        "quantity",
+        "checkout_buttons",
+        "description"
+      ],
+      "settings": {
+      }
     },
-    "order": ["template"]
+    "1687572251e178672e": {
+      "type": "apps",
+      "blocks": {
+        "66234b52-4fc6-4f10-9dc2-bc7063ef0acb": {
+          "type": "shopify:\/\/apps\/product-updater\/blocks\/star_rating\/1672eecb-ce17-4c6f-a5bc-fda1496a737a",
+          "settings": {
+            "product": "{{product}}",
+            "colour": "#ff0000"
+          }
+        }
+      },
+      "block_order": [
+        "66234b52-4fc6-4f10-9dc2-bc7063ef0acb"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "template",
+    "1687572251e178672e"
+  ]
 }
