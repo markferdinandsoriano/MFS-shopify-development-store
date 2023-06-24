@@ -61,10 +61,18 @@
             "product": "leather-anchor",
             "colour": "#ff0000"
           }
+        },
+        "ce5cc300-754f-4861-a5f4-9034c42ee3bd": {
+          "type": "shopify:\/\/apps\/product-updater\/blocks\/custom_pagination\/1672eecb-ce17-4c6f-a5bc-fda1496a737a",
+          "settings": {
+            "product": "{{product}}",
+            "colour": "#ff0000"
+          }
         }
       },
       "block_order": [
-        "66234b52-4fc6-4f10-9dc2-bc7063ef0acb"
+        "66234b52-4fc6-4f10-9dc2-bc7063ef0acb",
+        "ce5cc300-754f-4861-a5f4-9034c42ee3bd"
       ],
       "settings": {
         "include_margins": true
