@@ -21,11 +21,30 @@
         "product_title": "Womens Green Necklace",
         "product_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       }
+    },
+    "16876001554b64faa9": {
+      "type": "apps",
+      "blocks": {
+        "d2759cd3-aa6c-4398-a04f-4330017f082a": {
+          "type": "shopify:\/\/apps\/product-updater\/blocks\/custom_pagination\/1672eecb-ce17-4c6f-a5bc-fda1496a737a",
+          "settings": {
+            "product": "",
+            "colour": "#ff0000"
+          }
+        }
+      },
+      "block_order": [
+        "d2759cd3-aa6c-4398-a04f-4330017f082a"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "image-banner",
     "featured-collection-page",
-    "featured-product"
+    "featured-product",
+    "16876001554b64faa9"
   ]
 }
