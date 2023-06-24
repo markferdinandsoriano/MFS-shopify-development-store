@@ -57,7 +57,7 @@
         "66234b52-4fc6-4f10-9dc2-bc7063ef0acb": {
           "type": "shopify:\/\/apps\/product-updater\/blocks\/star_rating\/1672eecb-ce17-4c6f-a5bc-fda1496a737a",
           "settings": {
-            "product": "{{product}}",
+            "product": "leather-anchor",
             "colour": "#ff0000"
           }
         }
