@@ -47,12 +47,31 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "1687761209a3446cff": {
+      "type": "apps",
+      "blocks": {
+        "e6e50c27-54e1-4dba-a442-e51fc528fa39": {
+          "type": "shopify:\/\/apps\/product-updater\/blocks\/custom_pagination\/1672eecb-ce17-4c6f-a5bc-fda1496a737a",
+          "settings": {
+            "product": "",
+            "colour": "#ff0000"
+          }
+        }
+      },
+      "block_order": [
+        "e6e50c27-54e1-4dba-a442-e51fc528fa39"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "image-banner",
     "featured-collection-page",
     "featured-product",
-    "16876001554b64faa9"
+    "16876001554b64faa9",
+    "1687761209a3446cff"
   ]
 }
