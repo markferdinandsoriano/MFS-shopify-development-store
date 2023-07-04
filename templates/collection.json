@@ -8,6 +8,18 @@
     },
     "1687844125c013c788": {
       "type": "apps",
+      "blocks": {
+        "6b9431af-27ad-47ad-8a39-7d9432e7a1b2": {
+          "type": "shopify:\/\/apps\/product-updater\/blocks\/custom_pagination\/1672eecb-ce17-4c6f-a5bc-fda1496a737a",
+          "settings": {
+            "product": "",
+            "colour": "#ff0000"
+          }
+        }
+      },
+      "block_order": [
+        "6b9431af-27ad-47ad-8a39-7d9432e7a1b2"
+      ],
       "settings": {
         "include_margins": true
       }
