@@ -18,7 +18,8 @@
 
     {{ content_for_header }}
     {{ 'application.css' | asset_url | stylesheet_tag }}
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <script src="{{ 'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js' | asset_url }}" defer></script>
 
     <style>
       [x-cloak] {

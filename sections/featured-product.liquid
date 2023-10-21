@@ -3,7 +3,7 @@
     {% if section.settings.selected_image != blank %}
       <div class="relative w-full h-[400px] flex justify-start items-start mt-10 z-0">
         <img
-          src="{{ section.settings.selected_image | img_url: "master" }}"
+          src="{{ section.settings.selected_image | image_url: "master" }}"
           loading="lazy"
           width="auto"
           height="autoclear"

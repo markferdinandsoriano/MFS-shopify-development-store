@@ -3,6 +3,9 @@
     <img
       class="object-contain object-center w-fit h-[600px] bg-none mt-[2rem]"
       src="{{ 'bike-image.png' | asset_img_url: 'master' }}"
+      width="auto"
+      height="auto"
+      loading="lazy"
     >
   </div>
   <div class="flex flex-col justify-center items-start w-[45%] h-full relative">
@@ -40,7 +43,10 @@
     <div class="absolute flex w-full h-[50%] z-20 bottom-0">
       <img
         class="object-contain object-center w-full h-full"
-        src="{{ 'vintage.png' | asset_img_url: 'master' | width: 1000 }}"
+        src="{{ 'vintage.png' | asset_img_url: 'master' }}"
+        width="auto"
+        height="auto"
+        loading="lazy"
       >
     </div>
 
@@ -80,10 +86,3 @@
     }
   }
 </style>
-
-{% schema %}
-{
-  "name": "Custom Page",
-  "settings": []
-}
-{% endschema %}

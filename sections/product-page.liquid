@@ -1,7 +1,7 @@
 {{ 'slider.css' | asset_url | stylesheet_tag }}
 {{ 'modalSlider.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'variantSelector.js' | asset_url }}" defer></script>
-<script src="{{ 'cart-notification.js' | asset_url}}" defer></script>
+<script src="{{ 'cart-notification.js' | asset_url }}" defer></script>
 <script src="{{ 'slider.js' | asset_url }}" defer></script>
 <script src="{{ 'quantity.js' | asset_url }}" defer></script>
 <script src="{{ 'modalSlider.js' | asset_url }}" defer></script>
@@ -183,47 +183,3 @@
   </div>
   {% render 'cart-notification' %}
 </div>
-
-{% schema %}
-{
-  "name": "Product",
-  "blocks": [
-    {
-      "type": "vendor",
-      "name": "Vendor or company",
-      "limit": 1
-    },
-    {
-      "type": "title",
-      "name": "Title",
-      "limit": 1
-    },
-    {
-      "type": "price",
-      "name": "Price",
-      "limit": 1
-    },
-    {
-      "type": "variant_selector",
-      "name": "Variant Selector",
-      "limit": 1
-    },
-    {
-      "type": "quantity",
-      "name": "Quantity",
-      "limit": 1
-    },
-    {
-      "type": "checkout_buttons",
-      "name": "Checkout Buttons",
-      "limit": 1
-    },
-    { "type": "description", "name": "Description", "limit": 1 }
-  ],
-  "presets": [
-    {
-      "name": "Featured Product"
-    }
-  ]
-}
-{% endschema %}
