@@ -1,0 +1,89 @@
+<div class="flex flex-row w-screen h-screen sm:hidden">
+  <div class="flex justify-end items-center w-[55%] h-full bg-white">
+    <img
+      class="object-contain object-center w-fit h-[600px] bg-none mt-[2rem]"
+      src="{{ 'bike-image.png' | asset_img_url: 'master' }}"
+    >
+  </div>
+  <div class="flex flex-col justify-center items-start w-[45%] h-full relative">
+    <div
+      class="absolute w-full h-full bg-right-top bg-cover z-0 bg-no-repeatbg-blue-500 opacity-50 bg-[url('https://mfs-development-online-store.myshopify.com/cdn/shop/t/4/assets/biker-girl.jpg')]"
+    ></div>
+    <div class="absolute w-full h-full bg-blue-900/80 z-0"></div>
+    <div class="flex flex-col gap-5 w-full h-auto z-10 pl-[3rem]">
+      <h1 class="text-white text-5xl">
+        ACTIVE <strong>MOBILITY</strong> <br>
+        FOR A <strong>HEALTHIER</strong> YOU
+      </h1>
+      <p class="text-white text-lg opacity-80">
+        We have plenty of model of you to test ride <br>
+        and purchase on site.
+      </p>
+      <p class="text-white text-lg opacity-80">Grab your dream bike and join the fun!</p>
+      <p class="text-white text-lg opacity-80">
+        "Test rides are available both in Elmonte <br>
+        showroom & Florida Showroom
+      </p>
+      <buton class="w-fit h-fit uppercase rounded bg-pink-600 px-10 py-3 text-white font-black">
+        Book A Test Ride
+      </buton>
+    </div>
+  </div>
+</div>
+<div class="w-screen h-screen bg-red-100 relative md:hidden">
+  <div class="flex flex-col items-start w-[100%] h-full relative">
+    <div
+      class="absolute w-full h-full bg-top bg-cover z-0 bg-no-repeatbg-blue-500 opacity-50 bg-[url('https://mfs-development-online-store.myshopify.com/cdn/shop/t/4/assets/biker-girl.jpg')]"
+    ></div>
+    <div class="absolute w-full h-full bg-blue-900/80 z-0"></div>
+
+    <div class="absolute flex w-full h-[50%] z-20 bottom-0">
+      <img
+        class="object-contain object-center w-full h-full"
+        src="{{ 'vintage.png' | asset_img_url: 'master' | width: 1000 }}"
+      >
+    </div>
+
+    <div id="mobile-description" class="flex flex-col items-center gap-5 w-full h-auto px-5 z-10 mt-[5rem]">
+      <h1 class="text-white text-center text-3xl min-[100px]:text-xl max-[320px]:text-xl">
+        ACTIVE <strong>MOBILITY</strong> <br>
+        FOR A <strong>HEALTHIER</strong> YOU
+      </h1>
+      <p class="text-white text-base opacity-80 text-center">
+        We have plenty of model of you to test ride <br>
+        and purchase on site.
+      </p>
+      <p class="text-white text-base opacity-80 text-center">Grab your dream bike and join the fun!</p>
+      <p class="text-white text-base opacity-80 text-center">
+        "Test rides are available both in Elmonte <br>
+        showroom & Florida Showroom
+      </p>
+      <buton id="book-test-ride" class="w-fit h-fit uppercase rounded bg-pink-600 px-10 py-3 text-white font-black">
+        Book A Test Ride
+      </buton>
+    </div>
+  </div>
+</div>
+
+<style>
+  @media only screen and (min-width: 100px) and (max-width: 400px) {
+    #mobile-description h1 {
+      font-size: 1.5rem;
+    }
+    #mobile-description p {
+      font-size: 0.8rem;
+    }
+
+    #mobile-description #book-test-ride {
+      font-size: 0.8rem;
+      padding: 1rem 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Page",
+  "settings": []
+}
+{% endschema %}
