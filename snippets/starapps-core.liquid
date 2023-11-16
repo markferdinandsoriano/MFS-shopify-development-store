@@ -6,7 +6,9 @@
 {% comment %}Locale, Currency and other meta data of the store{% endcomment %}
 <script type="text/javascript" sa-published-language-info="true" data-no-instant="true">{% assign published_locales = shop.published_locales | where: "primary", true %}{%- if published_locales.size == 0 -%} (function(){console.log("SWATCH KING LANGUAGE_ERROR ::: Default langaugae is not published in this market.")})(); {% endif %}</script>
 <script type="application/json" sa-money-format="true" data-no-instant="true">{{ newline }}{"money_format":{{ shop.money_format | json }}}{{ newline }}</script>
-{% comment %} meta_information_end {% endcomment %}<script type="text/javascript" src="https://assets-cdn.starapps.studio/apps/vsk/mfs-development-online-store/script-107819-1700103710.js?shop={{shop.permanent_domain}}" defer></script>
+{% comment %} meta_information_end {% endcomment %}
+    
+<script type="text/javascript" src="https://assets-cdn.starapps.studio/apps/vsk/mfs-development-online-store/script-107819-1700103899.js?shop={{shop.permanent_domain}}" defer></script>
 
 
 <!-- VSK_PRE_APP_HIDE_CODE -->
